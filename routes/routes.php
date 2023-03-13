@@ -1,9 +1,16 @@
 <?php
 
-$json = array(
-    'status' => 200,
-    'result' => 'success'
-);
+$routesArray = explode("/", $_SERVER['REQUEST_URI']);
+$routesArray = array_filter($routesArray);
 
-echo json_encode($json);
-return;
+if (count($routesArray) == 0) {
+    $json = array(
+        'status' => 404,
+        'result' => "not found"
+    );
+    echo json_encode($json, http_response_code($json['status']));
+    return;
+}
+
+
+
